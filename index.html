@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 pb-6 my-auto max-w-4xl mx-auto w-full" id="topic-grid">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 pb-6 my-auto max-w-5xl mx-auto w-full" id="topic-grid">
                 </div>
             </div>
 
@@ -144,7 +144,15 @@
             { id: 'at_the_market', title: 'Di Pasar / Toko (At the Market)', icon: '🛒', color: 'bg-amber-500 hover:bg-amber-600' },
             { id: 'at_the_restaurant', title: 'Di Restoran / Kafe (At the Restaurant)', icon: '🍔', color: 'bg-pink-500 hover:bg-pink-600' },
             { id: 'asking_directions', title: 'Menanyakan Arah (Asking Directions)', icon: '🗺️', color: 'bg-purple-500 hover:bg-purple-600' },
-            { id: 'introducing_self', title: 'Perkenalan Diri (Introducing Self)', icon: '🤝', color: 'bg-teal-500 hover:bg-teal-600' }
+            { id: 'introducing_self', title: 'Perkenalan Diri (Introducing Self)', icon: '🤝', color: 'bg-teal-500 hover:bg-teal-600' },
+            { id: 'daily_activity', title: 'Aktivitas Sehari-hari (Daily Activity)', icon: '⏰', color: 'bg-indigo-500 hover:bg-indigo-600' },
+            { id: 'recreation_place', title: 'Tempat Rekreasi (Recreation Place)', icon: '🎢', color: 'bg-cyan-500 hover:bg-cyan-600' },
+            { id: 'in_classroom', title: 'Di Ruang Kelas (In the Classroom)', icon: '🎒', color: 'bg-emerald-600 hover:bg-emerald-700' },
+            { id: 'asking_opinion', title: 'Meminta & Beri Pendapat (Asking & Opinion)', icon: '💡', color: 'bg-violet-500 hover:bg-violet-600' },
+            { id: 'giving_advice', title: 'Memberi Saran (Giving Advice)', icon: '🩺', color: 'bg-sky-500 hover:bg-sky-600' },
+            { id: 'agreement_disagreement', title: 'Setuju & Tidak Setuju (Agreement)', icon: '🤝', color: 'bg-fuchsia-500 hover:bg-fuchsia-600' },
+            { id: 'notices_messages', title: 'Pesan & Pemberitahuan (Notices)', icon: '📢', color: 'bg-lime-600 hover:bg-lime-700' },
+            { id: 'comparative_superlative', title: 'Perbandingan (Comparative & Superlative)', icon: '⚖️', color: 'bg-orange-600 hover:bg-orange-700' }
         ];
 
         const questionBank = {
@@ -303,6 +311,214 @@
                     { q: "What do you like to do ........ weekends?", eng: "on" },
                     { q: "It's a pleasure to ........ you here today.", eng: "meet" }
                 ]
+            },
+            'daily_activity': {
+                easy: [
+                    { q: "I wake up early in the morning.", eng: "Saya bangun pagi-pagi sekali." },
+                    { q: "I take a bath and brush my teeth.", eng: "Saya mandi dan menggosok gigi." },
+                    { q: "I eat breakfast with my family.", eng: "Saya sarapan bersama keluarga." },
+                    { q: "I go to school by bicycle.", eng: "Saya pergi ke sekolah dengan sepeda." },
+                    { q: "I study at school every day.", eng: "Saya belajar di sekolah setiap hari." },
+                    { q: "I do my homework in the afternoon.", eng: "Saya mengerjakan PR pada sore hari." },
+                    { q: "I have dinner at seven o'clock.", eng: "Saya makan malam jam tujuh." },
+                    { q: "I watch TV before sleeping.", eng: "Saya menonton TV sebelum tidur." },
+                    { q: "I go to bed at nine PM.", eng: "Saya pergi tidur jam sembilan malam." },
+                    { q: "What time do you wake up?", eng: "Jam berapa kamu bangun tidur?" }
+                ],
+                medium: [
+                    { q: "Every morning, I ........ up at 5 AM.", eng: "wake" },
+                    { q: "After taking a bath, I put ........ my school uniform.", eng: "on" },
+                    { q: "I usually ........ breakfast at half past six.", eng: "have / eat" },
+                    { q: "She ........ to bed very late last night.", eng: "went" },
+                    { q: "What do you do ........ your free time?", eng: "in" },
+                    { q: "I wash my face and ........ my teeth every morning.", eng: "brush" },
+                    { q: "He arrives ........ home around 3 PM.", eng: "at" },
+                    { q: "Before sleeping, I always turn ........ the lights.", eng: "off" },
+                    { q: "My mother cooks dinner while I ........ my homework.", eng: "do" },
+                    { q: "They prepare ........ for school the night before.", eng: "everything" }
+                ]
+            },
+            'recreation_place': {
+                easy: [
+                    { q: "Let's go to the beach this weekend.", eng: "Mari kita pergi ke pantai akhir pekan ini." },
+                    { q: "The amusement park has many rides.", eng: "Taman hiburan itu memiliki banyak wahana." },
+                    { q: "I want to swim in the pool.", eng: "Saya ingin berenang di kolam renang." },
+                    { q: "We can picnic at the mountain.", eng: "Kita bisa piknik di gunung." },
+                    { q: "Let's visit the zoo to see animals.", eng: "Mari kunjungi kebun binatang untuk melihat hewan." },
+                    { q: "The botanical garden is very green.", eng: "Kebun raya itu sangat hijau." },
+                    { q: "Do you like camping in the forest?", eng: "Apakah kamu suka berkemah di hutan?" },
+                    { q: "We rent a boat at the lake.", eng: "Kami menyewa perahu di danau." },
+                    { q: "The water park is so much fun!", eng: "Taman air itu sangat menyenangkan!" },
+                    { q: "Let's take pictures here.", eng: "Mari kita berfoto di sini." }
+                ],
+                medium: [
+                    { q: "We bought tickets to enter the ........ park.", eng: "amusement" },
+                    { q: "The kids love building castles ........ the sand at the beach.", eng: "in" },
+                    { q: "We need a tent and sleeping bags ........ camping.", eng: "for" },
+                    { q: "A: Where should we spend our holiday?\nB: How ........ the beach?", eng: "about" },
+                    { q: "The entrance ........ for the zoo is fifty thousand rupiahs.", eng: "fee / ticket" },
+                    { q: "We enjoyed the beautiful sunset ........ the sea.", eng: "over / by" },
+                    { q: "Let's rent a cycling boat ........ the lake.", eng: "on" },
+                    { q: "Make sure to bring sunscreen ........ a sunny day at the beach.", eng: "for" },
+                    { q: "The roller coaster ride was thrilling and very ........ !", eng: "exciting / fun" },
+                    { q: "We had a wonderful picnic ........ the big tree.", eng: "under" }
+                ]
+            },
+            'in_classroom': {
+                easy: [
+                    { q: "Open your English book, please.", eng: "Tolong buka buku bahasa Inggris kalian." },
+                    { q: "Sit down on your chair.", eng: "Duduklah di kursi kalian." },
+                    { q: "Raise your hand to answer.", eng: "Angkat tanganmu untuk menjawab." },
+                    { q: "Don't make noise in the class.", eng: "Jangan membuat gaduh di kelas." },
+                    { q: "Listen to the teacher carefully.", eng: "Dengarkan guru dengan baik." },
+                    { q: "Clean the whiteboard, please.", eng: "Tolong bersihkan papan tulis." },
+                    { q: "Who has a sharpener?", eng: "Siapa yang punya rautan pensil?" },
+                    { q: "Please submit your workbook.", eng: "Tolong kumpulkan buku kerja kalian." },
+                    { q: "Can I borrow a ruler?", eng: "Bisakah saya meminjam penggaris?" },
+                    { q: "Class is over, goodbye students!", eng: "Kelas selesai, selamat tinggal anak-anak!" }
+                ],
+                medium: [
+                    { q: "Teacher: 'Please turn ........ page 25.'", eng: "to" },
+                    { q: "Student: 'May I come ........ , Sir?'", eng: "in" },
+                    { q: "Please write your answers ........ the whiteboard.", eng: "on" },
+                    { q: "Don't forget to put your name ........ top of the paper.", eng: "on" },
+                    { q: "Teacher: 'Who wants to write this ........ the board?'", eng: "on" },
+                    { q: "Please keep quiet ........ the exam is starting.", eng: "because" },
+                    { q: "Raise your hand if you don't ........ the instruction.", eng: "understand" },
+                    { q: "Put your books ........ your bag before leaving.", eng: "into / in" },
+                    { q: "The teacher writes formulas ........ a marker.", eng: "with" },
+                    { q: "Please work ........ pairs for this assignment.", eng: "in" }
+                ]
+            },
+            'asking_opinion': {
+                easy: [
+                    { q: "What do you think about this movie?", eng: "Bagaimana pendapatmu tentang film ini?" },
+                    { q: "In my opinion, it is very good.", eng: "Menurut pendapatku, ini sangat bagus." },
+                    { q: "What is your view on this matter?", eng: "Bagaimana pandanganmu tentang masalah ini?" },
+                    { q: "How do you feel about the new rule?", eng: "Bagaimana perasaanmu tentang peraturan baru itu?" },
+                    { q: "I think learning English is important.", eng: "Menurutku belajar bahasa Inggris itu penting." },
+                    { q: "Do you agree with me?", eng: "Apakah kamu setuju denganku?" },
+                    { q: "As far as I'm concerned, it's fine.", eng: "Sejauh yang kutahu, itu baik-baik saja." },
+                    { q: "What's your take on this issue?", eng: "Bagaimana tanggapanmu tentang isu ini?" },
+                    { q: "I believe we can win the game.", eng: "Aku yakin kita bisa memenangkan pertandingan itu." },
+                    { q: "Tell me what you think.", eng: "Katakan padaku apa yang kamu pikirkan." }
+                ],
+                medium: [
+                    { q: "A: What do you ........ about my new haircut?\nB: It looks great!", eng: "think" },
+                    { q: "........ my opinion, this restaurant serves the best pizza.", eng: "In" },
+                    { q: "A: How do you ........ about moving to a new city?\nB: I am quite excited.", eng: "feel" },
+                    { q: "As ........ as I am concerned, honesty is the best policy.", eng: "far" },
+                    { q: "What's your ........ on the upcoming school project?", eng: "opinion / view / take" },
+                    { q: "I ........ that everyone should read more books.", eng: "believe / think" },
+                    { q: "Do you have any ........ on how to solve this problem?", eng: "thoughts" },
+                    { q: "A: What do you think of this song?\nB: To be ........ , it's a bit boring.", eng: "honest" },
+                    { q: "I'd ........ to know your thoughts on this plan.", eng: "love" },
+                    { q: "What are your ........ regarding the schedule change?", eng: "views / thoughts" }
+                ]
+            },
+            'giving_advice': {
+                easy: [
+                    { q: "You should study hard for the test.", eng: "Kamu harus giat belajar untuk ujian." },
+                    { q: "If I were you, I would apologize.", eng: "Jika aku jadi kamu, aku akan meminta maaf." },
+                    { q: "You had better see a doctor soon.", eng: "Sebaiknya kamu segera berobat ke dokter." },
+                    { q: "Why don't you take a rest?", eng: "Mengapa kamu tidak beristirahat saja?" },
+                    { q: "It's a good idea to drink warm water.", eng: "Ide bagus untuk minum air hangat." },
+                    { q: "You ought to practice speaking English.", eng: "Kamu sebaiknya berlatih berbicara bahasa Inggris." },
+                    { q: "Don't stay up too late at night.", eng: "Jangan begadang terlalu malam." },
+                    { q: "Make sure you wear a jacket outside.", eng: "Pastikan kamu memakai jaket di luar." },
+                    { q: "Try to be on time tomorrow.", eng: "Cobalah untuk datang tepat waktu besok." },
+                    { q: "Take my advice, do not give up.", eng: "Terimalah saranku, jangan menyerah." }
+                ],
+                medium: [
+                    { q: "You ........ consult a doctor if your headache continues.", eng: "should / ought to" },
+                    { q: "If I ........ you, I would take the job offer.", eng: "were" },
+                    { q: "You ........ better submit your homework before the deadline.", eng: "had" },
+                    { q: "Why ........ you join our English club?", eng: "don't" },
+                    { q: "It ........ be wise to check the schedule beforehand.", eng: "would" },
+                    { q: "You ........ not eat too much junk food.", eng: "should / ought to" },
+                    { q: "If you want to pass, you need ........ study harder.", eng: "to" },
+                    { q: "I strongly ........ that you practice every day.", eng: "recommend / advise" },
+                    { q: "Have you considered ........ taking a short break?", eng: "taking" },
+                    { q: "My advice ........ to stay calm in any situation.", eng: "is" }
+                ]
+            },
+            'agreement_disagreement': {
+                easy: [
+                    { q: "I totally agree with you.", eng: "Aku sangat setuju denganmu." },
+                    { q: "That is absolutely right.", eng: "Itu sangat benar." },
+                    { q: "I couldn't agree more.", eng: "Aku sangat sependapat." },
+                    { q: "I'm afraid I disagree.", eng: "Maaf, aku tidak setuju." },
+                    { q: "I see your point, but I have another idea.", eng: "Aku mengerti maksudmu, tapi aku punya ide lain." },
+                    { q: "That's not always true.", eng: "Itu tidak selalu benar." },
+                    { q: "Exactly what I was thinking!", eng: "Tepat seperti yang kupikirkan!" },
+                    { q: "I have a different perspective.", eng: "Aku punya sudut pandang yang berbeda." },
+                    { q: "We are on the same page.", eng: "Kita sejalan / sepemikiran." },
+                    { q: "I don't think so.", eng: "Menurutku tidak begitu." }
+                ],
+                medium: [
+                    { q: "A: Reading books is useful.\nB: I couldn't agree ........ .", eng: "more" },
+                    { q: "A: Math is very difficult.\nB: I'm ........ I disagree with you.", eng: "afraid" },
+                    { q: "We are definitely on the same ........ regarding this issue.", eng: "page" },
+                    { q: "That's partly true, ........ there are exceptions.", eng: "but" },
+                    { q: "I see ........ you mean, but let's consider other options.", eng: "what" },
+                    { q: "A: This is the best solution.\nB: Exactly my ........ !", eng: "thought" },
+                    { q: "I have to ........ to differ with your statement.", eng: "beg" },
+                    { q: "You have a good point, ........ I still have doubts.", eng: "however / but" },
+                    { q: "I am of the ........ opinion as my partner.", eng: "same" },
+                    { q: "There is no doubt ........ you are right.", eng: "that" }
+                ]
+            },
+            'notices_messages': {
+                easy: [
+                    { q: "Keep the room clean and tidy.", eng: "Jaga ruangan agar tetap bersih dan rapi." },
+                    { q: "Please turn off the lights when leaving.", eng: "Tolong matikan lampu saat keluar." },
+                    { q: "Do not touch, wet paint!", eng: "Jangan disentuh, cat masih basah!" },
+                    { q: "Push to open the door.", eng: "Dorong untuk membuka pintu." },
+                    { q: "Silence please, exam in progress.", eng: "Harap tenang, ujian sedang berlangsung." },
+                    { q: "Out of order, please use another machine.", eng: "Rusak, silakan gunakan mesin lain." },
+                    { q: "Caution, slippery floor!", eng: "Perhatian, lantai licin!" },
+                    { q: "No smoking in this area.", eng: "Dilarang merokok di area ini." },
+                    { q: "Staff only beyond this point.", eng: "Khusus staf di balik batas ini." },
+                    { q: "Please do not feed the animals.", eng: "Mohon jangan memberi makan hewan." }
+                ],
+                medium: [
+                    { q: "The sign 'Wet Floor' warns people to walk ........ .", eng: "carefully" },
+                    { q: "A 'No Parking' notice means you cannot ........ your vehicle here.", eng: "park" },
+                    { q: "What does 'Out of Order' mean on a vending machine?", eng: "Broken / Not working" },
+                    { q: "The notice says 'Fragile', handle with ........ .", eng: "care" },
+                    { q: "When you see 'Do Not Enter', you must ........ go inside.", eng: "not" },
+                    { q: "A short message: 'Gone to lunch, back at 1 PM.' When will they return?", eng: "At 1 PM" },
+                    { q: "The public notice reads 'Keep Off the Grass'. You should walk on the ........ .", eng: "path / sidewalk" },
+                    { q: "Warning sign: 'High Voltage'. This means it is ........ .", eng: "dangerous" },
+                    { q: "Notice on a package: 'Keep Dry'. Store it away from ........ .", eng: "water / moisture" },
+                    { q: "The sign 'Reserved' indicates the seat is ........ for someone.", eng: "booked / kept" }
+                ]
+            },
+            'comparative_superlative': {
+                easy: [
+                    { q: "An elephant is bigger than a dog.", eng: "Gajah lebih besar daripada anjing." },
+                    { q: "The blue whale is the biggest animal.", eng: "Paus biru adalah hewan terbesar." },
+                    { q: "My house is smaller than yours.", eng: "Rumahku lebih kecil daripada rumahmu." },
+                    { q: "This is the smallest room in the house.", eng: "Ini adalah kamar terkecil di rumah." },
+                    { q: "A cheetah runs faster than a lion.", eng: "Cheetah berlari lebih cepat daripada singa." },
+                    { q: "Who is the tallest student in class?", eng: "Siapa siswa paling tinggi di kelas?" },
+                    { q: "English is easier than math.", eng: "Bahasa Inggris lebih mudah daripada matematika." },
+                    { q: "Mount Everest is the highest mountain.", eng: "Gunung Everest adalah gunung tertinggi." },
+                    { q: "Gold is more expensive than silver.", eng: "Emas lebih mahal daripada perak." },
+                    { q: "This is the most interesting book.", eng: "Ini adalah buku yang paling menarik." }
+                ],
+                medium: [
+                    { q: "A plane is ........ (fast) than a train.", eng: "faster" },
+                    { q: "Jupiter is the ........ (big) planet in our solar system.", eng: "biggest" },
+                    { q: "This test is ........ (difficult) than the previous one.", eng: "more difficult" },
+                    { q: "She is the ........ (smart) student in our school.", eng: "smartest" },
+                    { q: "Diamond is the ........ (hard) natural substance on earth.", eng: "hardest" },
+                    { q: "My bag is heavier ........ yours.", eng: "than" },
+                    { q: "Mount Fuji is one of ........ most famous mountains in Japan.", eng: "the" },
+                    { q: "Today's weather is ........ (hot) than yesterday's.", eng: "hotter" },
+                    { q: "He speaks English ........ (fluently) than me.", eng: "more fluently" },
+                    { q: "That was the ........ (bad) movie I have ever seen.", eng: "worst" }
+                ]
             }
         };
 
@@ -371,7 +587,6 @@
             currentTopic = topics.find(t => t.id === topicId);
             previousQuestion = null;
             
-            // For easy/basic types, pull from 'easy' array, otherwise 'medium'
             const sourceKey = currentLevel === 'medium' ? 'medium' : 'easy';
             const allQs = questionBank[topicId][sourceKey];
             currentQuestionList = [...allQs];
