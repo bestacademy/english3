@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percakapan Sehari-hari Bahasa Inggris</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0fdf4;
+            background-image: radial-gradient(#dcfce7 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+        .btn-topic {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-topic:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .is-pseudo-fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: none !important;
+            max-height: none !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            border: none !important;
+            z-index: 99999 !important;
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col overflow-hidden selection:bg-indigo-200">
+
+    <div id="app" class="flex-grow flex flex-col relative w-full h-full max-w-6xl mx-auto bg-white shadow-2xl overflow-hidden sm:rounded-2xl sm:my-2 lg:my-4 sm:h-[calc(100vh-1rem)] lg:h-[calc(100vh-2rem)] border-4 border-emerald-200 transition-all duration-300">
+        
+        <header class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-3 sm:p-4 shadow-md flex justify-between items-center z-20 shrink-0">
+            <h1 class="text-lg sm:text-2xl lg:text-3xl font-black tracking-wider flex items-center gap-2">
+                💬 English Conversation 💬
+            </h1>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button id="btn-fullscreen" class="bg-white/20 hover:bg-white/30 active:scale-95 text-white font-bold py-1.5 px-3 rounded-full transition-all flex items-center gap-2 text-xs sm:text-sm border border-white/40 shadow-sm backdrop-blur-sm cursor-pointer">
+                    <span id="fullscreen-icon" class="text-base sm:text-lg">⛶</span>
+                    <span class="hidden sm:inline" id="fullscreen-text">Full Screen</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-grow relative overflow-y-auto overflow-x-hidden p-4 sm:p-6 lg:p-8 bg-teal-50/30 flex flex-col">
+            
+            <div id="menu-view" class="w-full h-full flex flex-col fade-in justify-start sm:justify-center mt-4 sm:mt-0">
+                <div class="text-center mb-6 sm:mb-8">
+                    <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black text-teal-800 mb-2 drop-shadow-sm">Pilih Tema Percakapan!</h2>
+                    <p class="text-teal-600 text-sm sm:text-base lg:text-lg mb-4 font-semibold">Belajar ungkapan & dialog bahasa Inggris sehari-hari.</p>
+                    
+                    <div class="flex flex-wrap justify-center items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-sm p-2 sm:p-3 rounded-2xl border-2 border-teal-100 max-w-2xl mx-auto shadow-sm">
+                        <span class="font-black text-teal-900 text-xs sm:text-sm uppercase tracking-wide mr-1">Jenis Soal:</span>
+                        <button id="btn-level-eng-indo" class="btn-level bg-green-500 text-white font-bold px-3 py-2 rounded-xl text-xs sm:text-sm shadow-md border-2 border-green-600 transform scale-105 transition-all cursor-pointer flex items-center gap-1">
+                            <span>🇬🇧➔🇮🇩</span> Eng ➔ Indo
+                        </button>
+                        <button id="btn-level-indo-eng" class="btn-level bg-white text-gray-700 hover:bg-blue-100 font-bold px-3 py-2 rounded-xl text-xs sm:text-sm border-2 border-gray-200 transition-all cursor-pointer flex items-center gap-1">
+                            <span>🇮🇩➔🇬🇧</span> Indo ➔ Eng
+                        </button>
+                        <button id="btn-level-medium" class="btn-level bg-white text-gray-700 hover:bg-yellow-100 font-bold px-3 py-2 rounded-xl text-xs sm:text-sm border-2 border-gray-200 transition-all cursor-pointer flex items-center gap-1">
+                            <span>🟡</span> Percakapan Mini
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 pb-6 my-auto max-w-4xl mx-auto w-full" id="topic-grid">
+                </div>
+            </div>
+
+            <div id="quiz-view" class="w-full h-full hidden flex-col fade-in pb-16">
+                <div class="flex justify-between items-center mb-3 sm:mb-4">
+                    <button id="btn-close-quiz" class="flex items-center gap-2 bg-red-100 text-red-600 hover:bg-red-200 hover:scale-105 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-black text-sm sm:text-base transition-all shadow-sm cursor-pointer border border-red-200">
+                        <span>❌</span> Menu
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <div id="quiz-level-badge" class="bg-green-500 text-white font-extrabold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-green-600 shadow-sm text-xs sm:text-sm uppercase flex items-center gap-1">
+                            <span>🇬🇧➔🇮🇩</span> Eng ➔ Indo
+                        </div>
+                    </div>
+                </div>
+
+                <h2 id="current-topic-title" class="text-xl sm:text-2xl lg:text-3xl font-black text-center text-teal-700 mb-4 sm:mb-6 capitalize drop-shadow-sm">Topic Name</h2>
+
+                <div class="bg-white rounded-3xl shadow-xl border-4 border-teal-100 p-6 sm:p-10 lg:p-12 flex-grow flex flex-col justify-center max-w-3xl mx-auto w-full relative overflow-hidden my-auto min-h-[300px]">
+                    
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-yellow-100 rounded-full mix-blend-multiply filter blur-2xl opacity-70 pointer-events-none"></div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-100 rounded-full mix-blend-multiply filter blur-2xl opacity-70 pointer-events-none"></div>
+
+                    <div class="text-center my-auto py-2 sm:py-6 relative z-10">
+                        <p id="question-prompt-label" class="text-gray-500 text-base sm:text-lg lg:text-xl font-bold mb-3 tracking-wide">Bahasa Inggris dari:</p>
+                        <h3 class="text-2xl sm:text-3xl lg:text-4xl text-slate-800 tracking-wide font-black drop-shadow-sm my-4 sm:my-6 leading-relaxed px-2 whitespace-pre-line" id="question-word">
+                            Pertanyaan
+                        </h3>
+                    </div>
+
+                    <div id="interaction-area" class="relative z-10 w-full flex flex-col items-center gap-4 mt-auto">
+                        <button id="btn-jawab" class="w-full max-w-md bg-amber-400 hover:bg-amber-500 text-amber-950 font-black text-2xl sm:text-3xl py-4 sm:py-5 px-8 rounded-2xl shadow-[0_8px_0_rgb(180,83,9)] hover:shadow-[0_4px_0_rgb(180,83,9)] hover:translate-y-1 transform transition-all active:translate-y-2 active:shadow-none border-2 border-amber-500 cursor-pointer">
+                            LIHAT JAWABAN
+                        </button>
+                        
+                        <div id="answer-reveal-area" class="hidden w-full flex flex-col items-center fade-in">
+                            <p class="text-teal-600 text-sm font-black uppercase tracking-widest mb-2 bg-teal-100 px-3 py-1 rounded-full">Jawaban / Arti</p>
+                            <div id="revealed-answer-text" class="text-2xl sm:text-3xl lg:text-4xl font-black text-emerald-600 bg-emerald-50 px-6 py-5 sm:py-6 rounded-2xl border-4 border-emerald-300 w-full text-center shadow-inner leading-relaxed">
+                                Answer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="absolute bottom-4 sm:bottom-6 left-0 right-0 flex justify-center px-4 pointer-events-none z-20">
+                     <button id="btn-next" class="hidden pointer-events-auto w-full max-w-sm bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-black text-xl sm:text-2xl py-4 px-8 rounded-full shadow-[0_6px_0_rgb(49,46,129)] hover:shadow-[0_3px_0_rgb(49,46,129)] hover:translate-y-1 transform transition-all active:translate-y-2 active:shadow-none border-4 border-indigo-300 cursor-pointer">
+                         LANJUT ➔
+                     </button>
+                 </div>
+            </div>
+
+        </main>
+
+        <footer class="bg-teal-50 text-teal-800 text-center py-2 sm:py-3 text-xs sm:text-sm font-black border-t-2 border-teal-100 shrink-0 z-20">
+            Created By : Best Academy - Conversation Edition
+        </footer>
+    </div>
+
+    <script>
+        const topics = [
+            { id: 'daily_greetings', title: 'Sapaan Sehari-hari (Daily Greetings)', icon: '👋', color: 'bg-rose-500 hover:bg-rose-600' },
+            { id: 'in_the_school', title: 'Di Lingkungan Sekolah (In the School)', icon: '🏫', color: 'bg-blue-500 hover:bg-blue-600' },
+            { id: 'at_the_market', title: 'Di Pasar / Toko (At the Market)', icon: '🛒', color: 'bg-amber-500 hover:bg-amber-600' },
+            { id: 'at_the_restaurant', title: 'Di Restoran / Kafe (At the Restaurant)', icon: '🍔', color: 'bg-pink-500 hover:bg-pink-600' },
+            { id: 'asking_directions', title: 'Menanyakan Arah (Asking Directions)', icon: '🗺️', color: 'bg-purple-500 hover:bg-purple-600' },
+            { id: 'introducing_self', title: 'Perkenalan Diri (Introducing Self)', icon: '🤝', color: 'bg-teal-500 hover:bg-teal-600' }
+        ];
+
+        const questionBank = {
+            'daily_greetings': {
+                easy: [
+                    { q: "How are you today?", eng: "Apa kabarmu hari ini?" },
+                    { q: "Good morning, my friend!", eng: "Selamat pagi, temanku!" },
+                    { q: "Nice to meet you.", eng: "Senang berkenalan denganmu." },
+                    { q: "See you tomorrow!", eng: "Sampai jumpa besok!" },
+                    { q: "Have a nice day!", eng: "Semoga hari menyenangkan!" },
+                    { q: "What is your name?", eng: "Siapa namamu?" },
+                    { q: "I am fine, thank you.", eng: "Aku baik-baik saja, terima kasih." },
+                    { q: "Good night, sleep well.", eng: "Selamat malam, tidur yang nyenyak." },
+                    { q: "Excuse me, where is the restroom?", eng: "Permisi, di mana kamar kecil?" },
+                    { q: "Thank you very much.", eng: "Terima kasih banyak." }
+                ],
+                medium: [
+                    { q: "A: How are you?\nB: ........ , and you?", eng: "I'm great / I'm fine" },
+                    { q: "A: Nice to meet you.\nB: ........ too.", eng: "Nice to meet you" },
+                    { q: "A: Thank you for your help.\nB: You're ........ !", eng: "welcome" },
+                    { q: "When you leave someone in the evening, you say:\n'Good ........ .'", eng: "evening" },
+                    { q: "When someone sneezes, you usually say:\n'Bless ........ .'", eng: "you" },
+                    { q: "A: Sorry for being late.\nB: That's ........ .", eng: "alright / okay" },
+                    { q: "How do you respond to 'How do you do?'", eng: "How do you do?" },
+                    { q: "A: Have a good weekend!\nB: Thanks, you ........ !", eng: "too" },
+                    { q: "Long time no ........ !", eng: "see" },
+                    { q: "Take ........ of yourself!", eng: "care" }
+                ]
+            },
+            'in_the_school': {
+                easy: [
+                    { q: "May I go to the restroom, please?", eng: "Bolehkah saya pergi ke kamar mandi?" },
+                    { q: "I don't understand this lesson.", eng: "Saya tidak mengerti pelajaran ini." },
+                    { q: "Can you help me with this homework?", eng: "Bisakah kamu membantuku dengan PR ini?" },
+                    { q: "What page is the exercise on?", eng: "Halaman berapa latihannya?" },
+                    { q: "Please open your book on page 10.", eng: "Tolong buka bukumu halaman 10." },
+                    { q: "Who is absent today?", eng: "Siapa yang tidak hadir hari ini?" },
+                    { q: "I forgot to bring my pen.", eng: "Saya lupa membawa pulpen saya." },
+                    { q: "Let's work in a group.", eng: "Mari kita bekerja dalam kelompok." },
+                    { q: "Hand in your paper, please.", eng: "Kumpulkan kertas kalian, silakan." },
+                    { q: "The bell is ringing.", eng: "Bel sekolah berbunyi." }
+                ],
+                medium: [
+                    { q: "A: Can I borrow your pencil?\nB: Sure, ........ you are.", eng: "here" },
+                    { q: "Teacher: 'Any ........ ?'\nStudent: 'No, everything is clear.'", eng: "questions" },
+                    { q: "Teacher: 'Please ........ your hands if you know the answer.'", eng: "raise" },
+                    { q: "Student: 'I am ........ for being late because of traffic.'", eng: "sorry" },
+                    { q: "A: What is the English of 'Buku'?\nB: It's ........ .", eng: "book" },
+                    { q: "We have an English test ........ Friday.", eng: "on" },
+                    { q: "Let's meet in the ........ during recess to read books.", eng: "library" },
+                    { q: "Who is your homeroom ........ this year?", eng: "teacher" },
+                    { q: "Don't forget to write your ........ on your paper.", eng: "name" },
+                    { q: "Please submit your homework ........ time.", eng: "on" }
+                ]
+            },
+            'at_the_market': {
+                easy: [
+                    { q: "How much does this cost?", eng: "Berapa harga barang ini?" },
+                    { q: "That is too expensive.", eng: "Itu terlalu mahal." },
+                    { q: "Do you have fresh apples?", eng: "Apakah kamu punya apel segar?" },
+                    { q: "I want to buy one kilo of sugar.", eng: "Saya ingin membeli satu kilo gula." },
+                    { q: "Can I pay by credit card?", eng: "Bisakah saya membayar dengan kartu kredit?" },
+                    { q: "Here is your change.", eng: "Ini uang kembalian Anda." },
+                    { q: "Looking for anything special?", eng: "Mencari sesuatu yang khusus?" },
+                    { q: "Where can I find vegetables?", eng: "Di mana saya bisa menemukan sayuran?" },
+                    { q: "Is there a discount?", eng: "Apakah ada diskon?" },
+                    { q: "Thank you, come again!", eng: "Terima kasih, datanglah lagi!" }
+                ],
+                medium: [
+                    { q: "A: How ........ is this jacket?\nB: It's fifty dollars.", eng: "much" },
+                    { q: "Seller: 'Can I help you?'\nBuyer: 'Yes, I am just ........ around.'", eng: "browsing / looking" },
+                    { q: "I'd like to try this shirt ........ to see if it fits.", eng: "on" },
+                    { q: "Do you have this in a larger ........ (ukuran)?", eng: "size" },
+                    { q: "The supermarket is open ........ 8 AM to 9 PM.", eng: "from" },
+                    { q: "Can I get a plastic ........ for these groceries?", eng: "bag" },
+                    { q: "A: Would you like a receipt?\nB: Yes, ........ please.", eng: "please" },
+                    { q: "The fruits are sold ........ weight at the traditional market.", eng: "by" },
+                    { q: "Excuse me, are these grapes ........ ?", eng: "fresh" },
+                    { q: "I am looking ........ fresh milk.", eng: "for" }
+                ]
+            },
+            'at_the_restaurant': {
+                easy: [
+                    { q: "Can I see the menu, please?", eng: "Bisa saya lihat menu makanannya?" },
+                    { q: "I would like to order fried rice.", eng: "Saya ingin memesan nasi goreng." },
+                    { q: "Are you ready to order?", eng: "Apakah Anda siap memesan?" },
+                    { q: "What do you recommend?", eng: "Apa yang Anda rekomendasikan?" },
+                    { q: "The food is delicious!", eng: "Makanannya sangat enak!" },
+                    { q: "Check please / The bill please.", eng: "Tolong minta bon pembayarannya." },
+                    { q: "Water without ice, please.", eng: "Air mineral tanpa es, ya." },
+                    { q: "Is this table available?", eng: "Apakah meja ini kosong / tersedia?" },
+                    { q: "I am allergic to peanuts.", eng: "Saya alergi terhadap kacang." },
+                    { q: "Enjoy your meal!", eng: "Selamat menikmati makanan!" }
+                ],
+                medium: [
+                    { q: "Waitress: 'What would you like to ........ ?'\nCustomer: 'I want a burger.'", eng: "order" },
+                    { q: "My steak is too rare, I want it well ........ .", eng: "done" },
+                    { q: "Could you bring me another ........ of water?", eng: "glass / bottle" },
+                    { q: "A: Do you accept cash?\nB: Yes, of ........ .", eng: "course" },
+                    { q: "Let's split the ........ equally among us.", eng: "bill" },
+                    { q: "Do you have any vegetarian ........ on the menu?", eng: "dishes / options" },
+                    { q: "The service here is very fast and ........ .", eng: "friendly" },
+                    { q: "I'd like a cup of hot tea ........ sugar.", eng: "without" },
+                    { q: "Excuse me, we are ready to ........ now.", eng: "order" },
+                    { q: "That smells so ........ ! I can't wait to eat.", eng: "delicious / good" }
+                ]
+            },
+            'asking_directions': {
+                easy: [
+                    { q: "Excuse me, where is the hospital?", eng: "Permisi, di mana rumah sakit?" },
+                    { q: "Turn left at the corner.", eng: "Belok kiri di tikungan." },
+                    { q: "Turn right at the traffic light.", eng: "Belok kanan di lampu merah." },
+                    { q: "Go straight ahead.", eng: "Lurus saja ke depan." },
+                    { q: "It is next to the post office.", eng: "Itu di sebelah kantor pos." },
+                    { q: "Is it far from here?", eng: "Apakah itu jauh dari sini?" },
+                    { q: "It is within walking distance.", eng: "Jaraknya bisa ditempuh dengan berjalan kaki." },
+                    { q: "Cross the street carefully.", eng: "Seberangi jalan dengan hati-hati." },
+                    { q: "The bank is across from the park.", eng: "Bank itu berada di seberang taman." },
+                    { q: "Thank you for your help.", eng: "Terima kasih atas bantuan Anda." }
+                ],
+                medium: [
+                    { q: "A: How do I get to the station?\nB: Just walk ........ blocks down this road.", eng: "two / three" },
+                    { q: "The museum is located ........ the heart of the city.", eng: "in" },
+                    { q: "You will see the bookstore ........ your right hand side.", eng: "on" },
+                    { q: "A: Is there a gas station nearby?\nB: Yes, just around the ........ .", eng: "corner" },
+                    { q: "Go past the supermarket and you'll ........ the school.", eng: "find / see" },
+                    { q: "Sorry, I am a stranger here ........ as well.", eng: "myself" },
+                    { q: "Take the second ........ on your left.", eng: "turn / street" },
+                    { q: "The hotel is situated ........ to the main beach.", eng: "close / next" },
+                    { q: "Follow this street ........ you reach the traffic light.", eng: "until" },
+                    { q: "Can you show me the way ........ the airport?", eng: "to" }
+                ]
+            },
+            'introducing_self': {
+                easy: [
+                    { q: "Hello, my name is John.", eng: "Halo, nama saya John." },
+                    { q: "I am from Indonesia.", eng: "Saya berasal dari Indonesia." },
+                    { q: "I am ten years old.", eng: "Umur saya sepuluh tahun." },
+                    { q: "I live in Jakarta.", eng: "Saya tinggal di Jakarta." },
+                    { q: "What is your hobby?", eng: "Apa hobimu?" },
+                    { q: "My hobby is playing football.", eng: "Hobiku adalah bermain sepak bola." },
+                    { q: "I have two brothers and one sister.", eng: "Saya punya dua saudara laki-laki dan satu perempuan." },
+                    { q: "Pleased to make your acquaintance.", eng: "Senang berkenalan dengan Anda." },
+                    { q: "What do you do in your free time?", eng: "Apa yang kamu lakukan di waktu luang?" },
+                    { q: "I love reading books.", eng: "Saya suka membaca buku." }
+                ],
+                medium: [
+                    { q: "A: Where were you ........ ?\nB: I was born in Bandung.", eng: "born" },
+                    { q: "I work ........ an English teacher in a primary school.", eng: "as" },
+                    { q: "Let me ........ myself. My name is Sarah.", eng: "introduce" },
+                    { q: "I am married and have two ........ (anak).", eng: "children / kids" },
+                    { q: "In my spare time, I enjoy ........ music.", eng: "listening to" },
+                    { q: "I am currently studying computer ........ at university.", eng: "science" },
+                    { q: "Could you tell me a little bit ........ yourself?", eng: "about" },
+                    { q: "I have been living in this city ........ five years.", eng: "for" },
+                    { q: "What do you like to do ........ weekends?", eng: "on" },
+                    { q: "It's a pleasure to ........ you here today.", eng: "meet" }
+                ]
+            }
+        };
+
+        let currentTopicId = '';
+        let currentTopic = null;
+        let currentLevel = 'eng-indo'; // 'eng-indo', 'indo-eng', 'medium'
+        let currentQuestionList = [];
+        let previousQuestion = null;
+        let isPseudoFullscreen = false;
+
+        const menuView = document.getElementById('menu-view');
+        const quizView = document.getElementById('quiz-view');
+        const topicGrid = document.getElementById('topic-grid');
+        
+        const btnCloseQuiz = document.getElementById('btn-close-quiz');
+        const currentTopicTitle = document.getElementById('current-topic-title');
+        const questionWord = document.getElementById('question-word');
+        const btnJawab = document.getElementById('btn-jawab');
+        const answerRevealArea = document.getElementById('answer-reveal-area');
+        const revealedAnswerText = document.getElementById('revealed-answer-text');
+        const btnNext = document.getElementById('btn-next');
+        const questionPromptLabel = document.getElementById('question-prompt-label');
+        const quizLevelBadge = document.getElementById('quiz-level-badge');
+
+        function initApp() {
+            topicGrid.innerHTML = '';
+            topics.forEach(topic => {
+                const btn = document.createElement('button');
+                btn.className = `${topic.color} text-white p-5 sm:p-6 rounded-3xl shadow-lg btn-topic flex flex-col items-center justify-center gap-3 sm:gap-4 border-4 border-white/50 cursor-pointer w-full h-full`;
+                btn.innerHTML = `
+                    <span class="text-4xl sm:text-5xl drop-shadow-md group-hover:scale-110 transition-transform">${topic.icon}</span>
+                    <span class="font-black text-sm sm:text-base drop-shadow-md leading-tight text-center tracking-wide">${topic.title}</span>
+                `;
+                btn.onclick = () => startQuiz(topic.id);
+                topicGrid.appendChild(btn);
+            });
+
+            document.getElementById('btn-level-eng-indo').onclick = () => setDifficultyLevel('eng-indo');
+            document.getElementById('btn-level-indo-eng').onclick = () => setDifficultyLevel('indo-eng');
+            document.getElementById('btn-level-medium').onclick = () => setDifficultyLevel('medium');
+            
+            btnCloseQuiz.onclick = returnToMenu;
+            btnJawab.onclick = revealAnswer;
+            btnNext.onclick = showNextQuestion;
+
+            document.getElementById('btn-fullscreen').onclick = toggleFullscreen;
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        }
+
+        function setDifficultyLevel(level) {
+            currentLevel = level;
+            const levels = [
+                { id: 'eng-indo', el: document.getElementById('btn-level-eng-indo'), activeClass: 'bg-green-500 text-white border-green-600', inactiveClass: 'bg-white text-gray-700 border-gray-200 hover:bg-green-50' },
+                { id: 'indo-eng', el: document.getElementById('btn-level-indo-eng'), activeClass: 'bg-blue-500 text-white border-blue-600', inactiveClass: 'bg-white text-gray-700 border-gray-200 hover:bg-blue-50' },
+                { id: 'medium', el: document.getElementById('btn-level-medium'), activeClass: 'bg-yellow-500 text-white border-yellow-600', inactiveClass: 'bg-white text-gray-700 border-gray-200 hover:bg-yellow-50' }
+            ];
+
+            levels.forEach(lvl => {
+                lvl.el.className = `btn-level font-bold px-3 py-2 rounded-xl text-xs sm:text-sm border-2 transition-all cursor-pointer flex items-center gap-1 ${lvl.id === level ? lvl.activeClass + ' transform scale-105 shadow-md' : lvl.inactiveClass}`;
+            });
+        }
+
+        function startQuiz(topicId) {
+            currentTopicId = topicId;
+            currentTopic = topics.find(t => t.id === topicId);
+            previousQuestion = null;
+            
+            // For easy/basic types, pull from 'easy' array, otherwise 'medium'
+            const sourceKey = currentLevel === 'medium' ? 'medium' : 'easy';
+            const allQs = questionBank[topicId][sourceKey];
+            currentQuestionList = [...allQs];
+            
+            currentTopicTitle.innerText = currentTopic.title;
+            
+            if(currentLevel === 'eng-indo') {
+                questionPromptLabel.innerText = "Terjemahkan ke Bahasa Indonesia:";
+            } else if(currentLevel === 'indo-eng') {
+                questionPromptLabel.innerText = "Terjemahkan ke Bahasa Inggris:";
+            } else {
+                questionPromptLabel.innerText = "Lengkapi percakapan / kalimat berikut:";
+            }
+
+            const badgeConfig = {
+                'eng-indo': { color: 'green', icon: '🇬🇧➔🇮🇩', text: 'Eng ➔ Indo' },
+                'indo-eng': { color: 'blue', icon: '🇮🇩➔🇬🇧', text: 'Indo ➔ Eng' },
+                'medium': { color: 'yellow', icon: '🟡', text: 'Percakapan Mini' }
+            }[currentLevel];
+            
+            quizLevelBadge.className = `bg-${badgeConfig.color}-500 text-white font-extrabold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-${badgeConfig.color}-600 shadow-sm text-xs sm:text-sm uppercase flex items-center gap-1`;
+            quizLevelBadge.innerHTML = `<span>${badgeConfig.icon}</span> ${badgeConfig.text}`;
+
+            menuView.classList.add('hidden');
+            quizView.classList.remove('hidden');
+            quizView.classList.add('flex');
+            
+            showNextQuestion();
+        }
+
+        function getRandomQuestion() {
+            if (currentQuestionList.length <= 1) return currentQuestionList[0];
+
+            let nextQ;
+            do {
+                const randomIndex = Math.floor(Math.random() * currentQuestionList.length);
+                nextQ = currentQuestionList[randomIndex];
+            } while (previousQuestion && nextQ.q === previousQuestion.q);
+
+            previousQuestion = nextQ;
+            return nextQ;
+        }
+
+        function displayQuestion(qObj) {
+            answerRevealArea.classList.add('hidden');
+            btnJawab.classList.remove('hidden');
+            btnNext.classList.add('hidden');
+            btnNext.classList.remove('pointer-events-auto');
+            
+            if(currentLevel === 'eng-indo') {
+                questionWord.innerText = qObj.q;
+                revealedAnswerText.innerText = qObj.eng;
+            } else if(currentLevel === 'indo-eng') {
+                questionWord.innerText = qObj.eng;
+                revealedAnswerText.innerText = qObj.q;
+            } else {
+                questionWord.innerText = qObj.q;
+                revealedAnswerText.innerText = qObj.eng;
+            }
+        }
+
+        function revealAnswer() {
+            btnJawab.classList.add('hidden');
+            answerRevealArea.classList.remove('hidden');
+            
+            btnNext.classList.remove('hidden');
+            btnNext.classList.add('pointer-events-auto');
+        }
+
+        function showNextQuestion() {
+            const nextQuestion = getRandomQuestion();
+            displayQuestion(nextQuestion);
+        }
+
+        function returnToMenu() {
+            quizView.classList.add('hidden');
+            quizView.classList.remove('flex');
+            
+            menuView.classList.remove('hidden');
+            menuView.classList.add('flex');
+        }
+
+        function toggleFullscreen() {
+            const app = document.getElementById('app');
+            if (!document.fullscreenElement && !isPseudoFullscreen) {
+                if (app.requestFullscreen) {
+                    app.requestFullscreen().catch(() => enablePseudoFullscreen(app));
+                } else {
+                    enablePseudoFullscreen(app);
+                }
+            } else {
+                if (document.exitFullscreen && document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else if (isPseudoFullscreen) {
+                    disablePseudoFullscreen(app);
+                }
+            }
+        }
+
+        function enablePseudoFullscreen(app) {
+            app.classList.add('is-pseudo-fullscreen');
+            isPseudoFullscreen = true;
+            updateFullscreenState();
+        }
+
+        function disablePseudoFullscreen(app) {
+            app.classList.remove('is-pseudo-fullscreen');
+            isPseudoFullscreen = false;
+            updateFullscreenState();
+        }
+
+        function handleFullscreenChange() {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                isPseudoFullscreen = false;
+            }
+            updateFullscreenState();
+        }
+
+        function updateFullscreenState() {
+            const isFull = document.fullscreenElement || isPseudoFullscreen;
+            document.getElementById('fullscreen-icon').innerText = isFull ? '⛕' : '⛶';
+            document.getElementById('fullscreen-text').innerText = isFull ? 'Keluar Layar Penuh' : 'Layar Penuh';
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>
